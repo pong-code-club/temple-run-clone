@@ -4,39 +4,57 @@ public class Player : MonoBehaviour
 {
     public Rigidbody MyRigidBody;
     public float MyPlayerSpeed;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         MyRigidBody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            transform.Rotate(0, -90, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            transform.Rotate(0, 90, 0);
+        }
 
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            didJumpThisFixedUpdate = true;
+        }
     }
+
+    private bool didJumpThisFixedUpdate = false;
 
     private void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (didJumpThisFixedUpdate == true)
         {
-            MyRigidBody.MovePosition(transform.position + new Vector3(0, 0, Constants.PLAYER_SPEED * Time.deltaTime));
-            //transform.forward = Vector3.forward;
+            MyRigidBody.AddForce(Vector3.up * 8, ForceMode.Impulse);
+            didJumpThisFixedUpdate = false;
         }
+
+        Vector3 directionToMoveIn = Vector3.zero;
+
+        directionToMoveIn += transform.forward;
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            directionToMoveIn -= transform.right;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            directionToMoveIn += transform.right;
+        }
+
+        MyRigidBody.MovePosition(transform.position + (directionToMoveIn * Constants.PLAYER_SPEED * Time.fixedDeltaTime));
+
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            MyRigidBody.MovePosition(transform.position + new Vector3(0, 0, -Constants.PLAYER_SPEED * Time.deltaTime));
-            //transform.forward = Vector3.back;
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            MyRigidBody.MovePosition(transform.position + new Vector3(-Constants.PLAYER_SPEED * Time.deltaTime, 0, 0));
-            //transform.forward = Vector3.left;
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            MyRigidBody.MovePosition(transform.position + new Vector3(Constants.PLAYER_SPEED * Time.deltaTime, 0, 0));
-            //transform.forward = Vector3.right;
+            //slide
         }
     }
 }

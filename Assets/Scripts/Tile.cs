@@ -13,17 +13,10 @@ public class Tile : MonoBehaviour
         MyTileManager.CurrentActiveTileGameObjectList.Add(gameObject);
     }
 
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("on trigger enter");
         if (other.CompareTag("Player"))
         {
-            Debug.Log("inside compare tag");
             InstantiateNextTile(other.gameObject);
         }
     }
@@ -36,13 +29,16 @@ public class Tile : MonoBehaviour
 
         for (int i = 0; i < MyConnectionPointList.Count; i++)
         {
-            if (Vector3.Distance(MyConnectionPointList[i].transform.position, player.transform.position) > Constants.TILE_WIDTH/2)
+            //0 out the y position so that jumping does not effect this calculation
+
+            Vector3 connectionPointPos = new Vector3(MyConnectionPointList[i].transform.position.x, 0, MyConnectionPointList[i].transform.position.z);
+            Vector3 playerPos = new Vector3(player.transform.position.x, 0, player.transform.position.z);
+
+            if (Vector3.Distance(connectionPointPos, playerPos) > Constants.TILE_WIDTH/2)
             {
                 possibleConnectionPoints.Add(MyConnectionPointList[i]);
             }
         }
-
-        //Debug.Log("possible connection points: " + possibleConnectionPoints.Count);
 
         //randomly select which of the possible tiles you could instantiate on each connection point
 
