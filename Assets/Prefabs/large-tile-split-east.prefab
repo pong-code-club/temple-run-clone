@@ -189,8 +189,7 @@ MonoBehaviour:
   MyConnectableTileGameObjectList:
   - {fileID: 2213620414029333667, guid: 8b7bac7d8ce82894786e866c093ea4b4, type: 3}
   - {fileID: 600831408337109225, guid: 3bf69f876d7b5ba418b9bd5df3e938ef, type: 3}
-  - {fileID: 0}
-  - {fileID: 1995576846694726569, guid: e874332f79d5e3d418330c77767b9e5b, type: 3}
+  - {fileID: 8590788822468442025, guid: 1996721ab9e9200459994dfdb3f83d22, type: 3}
 --- !u!1 &842426425511437522
 GameObject:
   m_ObjectHideFlags: 0
